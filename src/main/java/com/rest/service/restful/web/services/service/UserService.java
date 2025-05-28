@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.rest.service.restful.web.services.user.User;
 import com.rest.service.restful.web.services.user.jpa.UserSpringDataJpaRepository;
@@ -21,11 +22,24 @@ public class UserService {
 		return userRepository.getUserById(userId).orElseThrow(()->new ResourceNotFoundException("user with User Id "+userId +" doesn't exists"));
 	}
 	
+	  @Transactional
 	public List<User> getAllUsers(){
 		return userRepository.findAll();
 	}
 	
+	  @Transactional
     public User addUser(User user) {
     	return userRepository.save(user);
+    }
+    
+    @Transactional
+    public void deleteUser(int id) {
+    	userRepository.getUserById(id).orElseThrow(()->new ResourceNotFoundException("user with User Id "+id +" doesn't exists"));
+    	userRepository.deleteById(id);
+    }
+    
+    @Transactional
+    public User updateUser(User user) {
+    	return userRepository.saveAndFlush(user);
     }
 }

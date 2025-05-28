@@ -23,6 +23,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.rest.service.restful.web.services.exception.UserNotFoundException;
 import com.rest.service.restful.web.services.post.Post;
 import com.rest.service.restful.web.services.post.jpa.PostJpaRepository;
+import com.rest.service.restful.web.services.service.UserService;
 import com.rest.service.restful.web.services.user.User;
 import com.rest.service.restful.web.services.user.jpa.UserSpringDataJpaRepository;
 
@@ -30,22 +31,19 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/users")
-public class UserResource {
+public class UserController {
 
 	// private UserDaoService userService;
 
-	private UserSpringDataJpaRepository userRepository;
+	private UserService userService;
 
-	private PostJpaRepository postRepository;
-
-	public UserResource(UserSpringDataJpaRepository jpaRepository, PostJpaRepository postRepository) {
-		this.userRepository = jpaRepository;
-		this.postRepository = postRepository;
+	public UserController(UserService userService) {
+		this.userService = userService;
 	}
 
 	@GetMapping
 	public ResponseEntity<List<User>> retrieveAllUsers() {
-		return new ResponseEntity<>(userRepository.findAll(), HttpStatus.OK);
+		return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")
@@ -62,16 +60,16 @@ public class UserResource {
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<User> addUser(@RequestBody @Valid User user) {
-		User addedUser = userRepository.save(user);
+		User addedUser = userService.addUser(user);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(addedUser.getId())
 				.toUri();
 		return new ResponseEntity(HttpStatus.CREATED).created(location).build();
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<User> removeUser(@PathVariable int id) {
-		userRepository.deleteById(id);
-		return new ResponseEntity<User>(HttpStatus.ACCEPTED);
+	@ResponseStatus(HttpStatus.ACCEPTED)
+	public void removeUser(@PathVariable int id) {
+		userService.deleteUser(id);
 	}
 
 	@GetMapping("/{userId}/posts")
@@ -83,31 +81,9 @@ public class UserResource {
 	}
 
 	private User getUserWithUserId(int userId) throws UserNotFoundException {
-		User user = userRepository.findById(userId).orElse(null);
-		if (user != null) {
-			return user;
-		} else {
-			throw new UserNotFoundException("User with the " + userId + " Not found");
-		}
+		return userService.getUserById(userId);
 	}
 
-	@GetMapping("/{userId}/posts/{postId}")
-	public Post getPostWithPostId(@PathVariable int userId, @PathVariable int postId) throws UserNotFoundException {
-		getUserWithUserId(userId);
-		return postRepository.findById(postId).orElse(null);
 
-	}
-
-	@PostMapping("/{userId}/posts")
-	public ResponseEntity<User> addPostToUser(@PathVariable int userId, @RequestBody Post post)
-			throws UserNotFoundException {
-		User user = getUserWithUserId(userId);
-		
-		post.setUser(user);
-		Post addedPost = postRepository.saveAndFlush(post);
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{userId}/posts")
-				.buildAndExpand(addedPost.getId()).toUri();
-		return new ResponseEntity<User>(HttpStatus.CREATED).created(location).build();
-	}
 
 }
