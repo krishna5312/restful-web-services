@@ -68,7 +68,7 @@ public class UserController {
 
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.ACCEPTED)
-	public void removeUser(@PathVariable int id) {
+	public void removeUser(@PathVariable int id) throws UserNotFoundException {
 		userService.deleteUser(id);
 	}
 

@@ -2,6 +2,7 @@ package com.rest.service.restful.web.services.exception;
 
 import java.time.LocalDateTime;
 
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -25,6 +26,12 @@ public class CustomisedExceptionHandler extends ResponseEntityExceptionHandler {
 	
 	@ExceptionHandler(UserNotFoundException.class)
 	public ResponseEntity<ErrorDetails> handleUserNotException(Exception ex, WebRequest request) throws Exception {
+		ErrorDetails ed = new ErrorDetails(LocalDateTime.now(), request.getDescription(false), ex.getMessage());
+		return new ResponseEntity<>(ed, HttpStatus.NOT_FOUND);
+	}
+	
+	@ExceptionHandler(ResourceNotFoundException.class)
+	public ResponseEntity<ErrorDetails> handleResourceNotException(Exception ex, WebRequest request) throws Exception {
 		ErrorDetails ed = new ErrorDetails(LocalDateTime.now(), request.getDescription(false), ex.getMessage());
 		return new ResponseEntity<>(ed, HttpStatus.NOT_FOUND);
 	}

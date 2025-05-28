@@ -46,13 +46,13 @@ public class PostController {
 	
 	@DeleteMapping("{postId}")
 	@ResponseStatus(HttpStatus.ACCEPTED)
-	public void removePost(@PathVariable int userId,@PathVariable int postId){
+	public void removePost(@PathVariable int userId,@PathVariable int postId) throws UserNotFoundException{
 		postsService.deletePost(postId, userId);
 		
 	}
 	
 	@DeleteMapping
-	public void removeAllPostsOfAUser(@PathVariable int userId) {
+	public void removeAllPostsOfAUser(@PathVariable int userId) throws UserNotFoundException {
 		postsService.removeAllUserPosts(userId);
 	}
 
