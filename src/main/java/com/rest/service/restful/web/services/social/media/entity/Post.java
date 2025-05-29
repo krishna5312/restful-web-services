@@ -18,7 +18,7 @@ public class Post {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "POST_SEQ")
 	@SequenceGenerator(name = "POST_SEQ", sequenceName = "POST_SEQ", allocationSize = 1, initialValue = 5000)
 	@Column(name = "postid")
-	private int id;
+	private Long id;
 
 	private String description;
 
@@ -30,17 +30,17 @@ public class Post {
 	protected Post() {
 	}
 
-	public Post(int id, String description) {
+	public Post(Long id, String description) {
 		super();
 		this.id = id;
 		this.description = description;
 	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

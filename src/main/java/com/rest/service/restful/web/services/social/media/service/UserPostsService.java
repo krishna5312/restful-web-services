@@ -10,22 +10,22 @@ import org.springframework.transaction.annotation.Transactional;
 import com.rest.service.restful.web.services.exception.UserNotFoundException;
 import com.rest.service.restful.web.services.social.media.entity.Post;
 import com.rest.service.restful.web.services.social.media.entity.User;
-import com.rest.service.restful.web.services.social.media.repository.PostJpaRepository;
+import com.rest.service.restful.web.services.social.media.repository.PostRepository;
 
 @Service
 public class UserPostsService {
 
-	private PostJpaRepository postRepository;
+	private PostRepository postRepository;
 
 	private UserService userService;
 
-	public UserPostsService(PostJpaRepository postRepository, UserService userService) {
+	public UserPostsService(PostRepository postRepository, UserService userService) {
 		this.postRepository = postRepository;
 		this.userService = userService;
 	}
 
 	@Transactional
-	public Post getPostById(int postId, int userId) throws UserNotFoundException {
+	public Post getPostById(Long postId, Long userId) throws UserNotFoundException {
 		User user = userService.getUserById(userId);
 		Post post = postRepository.getPostById(postId)
 				.orElseThrow(() -> new ResourceNotFoundException("Post with Id " + postId + " is not present"));
@@ -37,14 +37,14 @@ public class UserPostsService {
 	}
 
 	@Transactional
-	public Post savePost(Post post, int userId) throws UserNotFoundException {
+	public Post savePost(Post post, Long userId) throws UserNotFoundException {
 		User user = userService.getUserById(userId);
 		post.setUser(user);
 		return postRepository.save(post);
 	}
 
 	@Transactional
-	public void deletePost(int postId, int userId) throws UserNotFoundException {
+	public void deletePost(Long postId, Long userId) throws UserNotFoundException {
 		Post post = getPostById(postId, userId);
 		User user = post.getUser();
 		user.getPosts().remove(post);
@@ -53,7 +53,7 @@ public class UserPostsService {
 	}
 
 	@Transactional
-	public void removeAllUserPosts(int userId) throws UserNotFoundException {
+	public void removeAllUserPosts(Long userId) throws UserNotFoundException {
 		User user = userService.getUserById(userId);
 		Set<Post> userPosts = user.getPosts();
 		user.setPosts(Collections.emptySet());

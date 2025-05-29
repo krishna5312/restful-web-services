@@ -9,8 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.rest.service.restful.web.services.social.media.entity.Post;
 
 @Transactional(propagation=Propagation.REQUIRED, readOnly=false)
-public interface PostJpaRepository extends JpaRepository<Post, Integer> {
+public interface PostRepository extends JpaRepository<Post, Long> {
 	
-Optional<Post> getPostById(int id);
+Optional<Post> getPostById(Long postId);
 
 }

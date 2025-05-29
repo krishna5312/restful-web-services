@@ -30,13 +30,13 @@ public class PostController {
 	}
 
 	@GetMapping("/{postId}")
-	public Post getPostWithPostId(@PathVariable int userId, @PathVariable int postId) throws UserNotFoundException {
+	public Post getPostWithPostId(@PathVariable Long userId, @PathVariable Long postId) throws UserNotFoundException {
 		return postsService.getPostById(postId, userId);
 
 	}
 
 	@PostMapping
-	public ResponseEntity<Post> addPostToUser(@PathVariable int userId, @RequestBody Post post)
+	public ResponseEntity<Post> addPostToUser(@PathVariable Long userId, @RequestBody Post post)
 			throws UserNotFoundException {
 		Post addedPost = postsService.savePost(post, userId);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{userId}/posts")
@@ -46,13 +46,13 @@ public class PostController {
 	
 	@DeleteMapping("{postId}")
 	@ResponseStatus(HttpStatus.ACCEPTED)
-	public void removePost(@PathVariable int userId,@PathVariable int postId) throws UserNotFoundException{
+	public void removePost(@PathVariable Long userId,@PathVariable Long postId) throws UserNotFoundException{
 		postsService.deletePost(postId, userId);
 		
 	}
 	
 	@DeleteMapping
-	public void removeAllPostsOfAUser(@PathVariable int userId) throws UserNotFoundException {
+	public void removeAllPostsOfAUser(@PathVariable Long userId) throws UserNotFoundException {
 		postsService.removeAllUserPosts(userId);
 	}
 

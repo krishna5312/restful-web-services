@@ -45,7 +45,7 @@ public class UserController {
 	}
 
 	@GetMapping("/{id}")
-	public EntityModel<User> retrieveUserWithId(@PathVariable int id) throws UserNotFoundException {
+	public EntityModel<User> retrieveUserWithId(@PathVariable Long id) throws UserNotFoundException {
 		User user = getUserWithUserId(id);
 
 		EntityModel<User> entityModel = EntityModel.of(user);
@@ -66,19 +66,19 @@ public class UserController {
 
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.ACCEPTED)
-	public void removeUser(@PathVariable int id) throws UserNotFoundException {
+	public void removeUser(@PathVariable Long id) throws UserNotFoundException {
 		userService.deleteUser(id);
 	}
 
 	@GetMapping("/{userId}/posts")
-	public Set<Post> getAllPostsMadeByUser(@PathVariable int userId) throws UserNotFoundException {
+	public Set<Post> getAllPostsMadeByUser(@PathVariable Long userId) throws UserNotFoundException {
 		User user = getUserWithUserId(userId);
 
 		return user.getPosts();
 
 	}
 
-	private User getUserWithUserId(int userId) throws UserNotFoundException {
+	private User getUserWithUserId(Long userId) throws UserNotFoundException {
 		return userService.getUserById(userId);
 	}
 

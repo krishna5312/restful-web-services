@@ -1,18 +1,21 @@
 package com.rest.service.restful.web.services.social.media.entity;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
@@ -23,9 +26,9 @@ import jakarta.validation.constraints.Size;
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USER_SEQ")
-	@SequenceGenerator(name = "USER_SEQ", sequenceName = "USER_SEQ", allocationSize = 1,initialValue = 1000)
+	@SequenceGenerator(name = "USER_SEQ", sequenceName = "USER_SEQ", allocationSize = 1, initialValue = 1000)
 	@Column(name = "userid")
-	private int id;
+	private Long id;
 	@Size(min = 2, message = "name should be atleast 2 characters")
 	private String name;
 
@@ -37,22 +40,42 @@ public class User {
 	@JsonIgnore
 	private Set<Post> posts;
 
-	public User() {
+	@OneToOne(mappedBy = "user",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JsonIgnore
+	private UserCredentials credentials;
+	
 
-	}
-
-	public User(int id, String name, LocalDate dateOfBirth) {
-		super();
+	public User(Long id, String name, LocalDate dateOfBirth) {
 		this.id = id;
 		this.name = name;
 		this.dateOfBirth = dateOfBirth;
 	}
 
-	public int getId() {
+	
+
+	@ElementCollection(fetch = FetchType.EAGER)
+	@JsonIgnore
+	private Set<String> roles = new HashSet<>();
+	
+
+	public User() {
+
+	}
+
+
+	public Set<String> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<String> roles) {
+		this.roles = roles;
+	}
+
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

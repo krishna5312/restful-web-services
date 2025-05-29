@@ -7,18 +7,18 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.rest.service.restful.web.services.exception.UserNotFoundException;
 import com.rest.service.restful.web.services.social.media.entity.User;
-import com.rest.service.restful.web.services.social.media.repository.UserSpringDataJpaRepository;
+import com.rest.service.restful.web.services.social.media.repository.UserRepository;
 
 @Service
 public class UserService {
 	
-	private UserSpringDataJpaRepository userRepository;
+	private UserRepository userRepository;
 
-	public UserService(UserSpringDataJpaRepository userRepository) {
+	public UserService(UserRepository userRepository) {
 		this.userRepository = userRepository;
 	}
 	
-	public User getUserById(int userId) throws UserNotFoundException {
+	public User getUserById(Long userId) throws UserNotFoundException {
 		return userRepository.getUserById(userId).orElseThrow(()->new UserNotFoundException("user with User Id "+userId +" doesn't exists"));
 	}
 	
@@ -33,7 +33,7 @@ public class UserService {
     }
     
     @Transactional
-    public void deleteUser(int id) throws UserNotFoundException {
+    public void deleteUser(Long id) throws UserNotFoundException {
     	userRepository.getUserById(id).orElseThrow(()->new UserNotFoundException("user with User Id "+id +" doesn't exists"));
     	userRepository.deleteById(id);
     }
