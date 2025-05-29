@@ -1,4 +1,4 @@
-package com.rest.service.restful.web.services.filter.controller;
+package com.rest.service.restful.web.services.json.filter.controller;
 
 import java.util.Arrays;
 import java.util.List;
@@ -11,7 +11,7 @@ import com.fasterxml.jackson.databind.ser.BeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.FilterProvider;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
-import com.rest.service.restful.web.services.student.Student;
+import com.rest.service.restful.web.services.json.filter.data.Student;
 
 @RestController
 public class FilteringController {

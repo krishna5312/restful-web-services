@@ -1,7 +1,6 @@
-package com.rest.service.restful.web.services.post;
+package com.rest.service.restful.web.services.social.media.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.rest.service.restful.web.services.user.User;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

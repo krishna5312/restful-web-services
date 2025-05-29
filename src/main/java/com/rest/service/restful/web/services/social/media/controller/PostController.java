@@ -1,4 +1,4 @@
-package com.rest.service.restful.web.services.controller;
+package com.rest.service.restful.web.services.social.media.controller;
 
 import java.net.URI;
 
@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.rest.service.restful.web.services.exception.UserNotFoundException;
-import com.rest.service.restful.web.services.post.Post;
-import com.rest.service.restful.web.services.service.UserPostsService;
+import com.rest.service.restful.web.services.social.media.entity.Post;
+import com.rest.service.restful.web.services.social.media.service.UserPostsService;
 
 @RestController
 @RequestMapping("/users/{userId}/posts")

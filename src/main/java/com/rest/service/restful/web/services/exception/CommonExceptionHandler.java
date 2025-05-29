@@ -16,7 +16,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @ControllerAdvice
-public class CustomisedExceptionHandler extends ResponseEntityExceptionHandler {
+public class CommonExceptionHandler extends ResponseEntityExceptionHandler {
 	
 	@ExceptionHandler(RuntimeException.class)
 	public ResponseEntity<ErrorDetails> handleAllException(Exception ex, WebRequest request) throws Exception {
@@ -43,13 +43,6 @@ public class CustomisedExceptionHandler extends ResponseEntityExceptionHandler {
 		ErrorDetails error = new ErrorDetails(LocalDateTime.now(),request.getDescription(false),ex.getFieldError().getDefaultMessage());
 
 		return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
-	}
-	
-	@ExceptionHandler(ObjectOptimisticLockingFailureException.class)
-	public ResponseEntity<ErrorDetails> handleLockException(ObjectOptimisticLockingFailureException ex, WebRequest request) throws Exception {
-		ErrorDetails ed = new ErrorDetails(LocalDateTime.now(), request.getDescription(false), ex.getMostSpecificCause().toString());
-		return new ResponseEntity<>(ed, HttpStatus.CONFLICT);
-		
 	}
 
 }

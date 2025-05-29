@@ -1,4 +1,4 @@
-package com.rest.service.restful.web.services.controller;
+package com.rest.service.restful.web.services.social.media.controller;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
@@ -21,11 +21,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.rest.service.restful.web.services.exception.UserNotFoundException;
-import com.rest.service.restful.web.services.post.Post;
-import com.rest.service.restful.web.services.post.jpa.PostJpaRepository;
-import com.rest.service.restful.web.services.service.UserService;
-import com.rest.service.restful.web.services.user.User;
-import com.rest.service.restful.web.services.user.jpa.UserSpringDataJpaRepository;
+import com.rest.service.restful.web.services.social.media.entity.Post;
+import com.rest.service.restful.web.services.social.media.entity.User;
+import com.rest.service.restful.web.services.social.media.service.UserService;
 
 import jakarta.validation.Valid;
 

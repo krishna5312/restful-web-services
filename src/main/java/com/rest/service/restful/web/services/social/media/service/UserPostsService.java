@@ -1,4 +1,4 @@
-package com.rest.service.restful.web.services.service;
+package com.rest.service.restful.web.services.social.media.service;
 
 import java.util.Collections;
 import java.util.Set;
@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.rest.service.restful.web.services.exception.UserNotFoundException;
-import com.rest.service.restful.web.services.post.Post;
-import com.rest.service.restful.web.services.post.jpa.PostJpaRepository;
-import com.rest.service.restful.web.services.user.User;
+import com.rest.service.restful.web.services.social.media.entity.Post;
+import com.rest.service.restful.web.services.social.media.entity.User;
+import com.rest.service.restful.web.services.social.media.repository.PostJpaRepository;
 
 @Service
 public class UserPostsService {

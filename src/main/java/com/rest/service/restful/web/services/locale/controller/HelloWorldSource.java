@@ -1,4 +1,4 @@
-package com.rest.service.restful.web.services.controller;
+package com.rest.service.restful.web.services.locale.controller;
 
 import java.util.Locale;
 

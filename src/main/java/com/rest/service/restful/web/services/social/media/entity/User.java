@@ -1,10 +1,9 @@
-package com.rest.service.restful.web.services.user;
+package com.rest.service.restful.web.services.social.media.entity;
 
 import java.time.LocalDate;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.rest.service.restful.web.services.post.Post;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;

@@ -1,4 +1,4 @@
-package com.rest.service.restful.web.services.student;
+package com.rest.service.restful.web.services.json.filter.data;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
 
