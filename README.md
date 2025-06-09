@@ -1,20 +1,114 @@
-# UserPosts
-This repository contains Spring Boot project built with Spring Boot 3.4.5 and Java 21 with MySQL as the database.
+# RESTful Web Services
 
-This project has explored various spring capabilities.
+## Overview
+This project demonstrates the implementation of RESTful web services using Spring Boot. It provides a simple API to perform CRUD (Create, Read, Update, Delete) operations on user data. The goal is to showcase the design and development of scalable and maintainable REST APIs.
 
-1. localhost:8080/filter-cred or localhost:8080/filter-id show how we can send the response to different end points for the same Object.
-Here, filter-cred omits credentials of students in the response where as filter-id return all other attributes of Student except for the id.
- 
-2. localhost:8080/users endpoint enables the CRUD operations on Users and localhost:8080/users/{userId}/posts endpoint enables us to access the 
- social media posts of that user. We can do CRUD operations on posts as well. When the user/post doesn't exists and we try to update/delete user/post 
-the end point gives a proper JSON response.
+## Features
+- Create, retrieve, update, and delete user records
+- RESTful endpoints following best practices
+- Exception handling for invalid requests
+- Basic validation of input data
 
-3. localhost:8080/hello-world-i18n gives the response based on the Accept-Language Header.
+## Technologies Used
+- Java 21
+- Spring Boot 3.4.x
+- Spring MVC / REST
+- Maven (for build and dependency management)
 
- 
- 
+## Getting Started
+
+### Prerequisites
+- Java Development Kit (JDK) 17 or higher installed
+- Maven installed
+- IDE like IntelliJ IDEA, Eclipse, or VS Code (optional but recommended)
+
+### Running the Application
+1. Clone the repository:
+   
+   git clone https://github.com/krishna5312/restful-web-services.git
+   
+2. Navigate to the project directory:
+   
+   cd restful-web-services
+   
+3. Build the project using Maven:
+   
+   mvn clean install
+   
+4. Run the application:
+   
+   mvn spring-boot:run
+   
+5. The application will start on `http://localhost:8080`
+
+## API Endpoints
+| Method | Endpoint           | Description                  |
+|--------|--------------------|------------------------------|
+| GET    | `/users`           | Retrieve all users            |
+| GET    | `/users/{id}`      | Retrieve user by ID           |
+| POST   | `/users`           | Create a new user             |
+| PUT    | `/users/{id}`      | Update an existing user       |
+| DELETE | `/users/{id}`      | Delete a user by ID           |
+
+### Sample Request
+
+POST /users
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "email": "john.doe@example.com",
+  "birthDate": "1990-01-01"
+}
 
 
+### Sample Response
+json
+{
+  "id": 1,
+  "name": "John Doe",
+  "email": "john.doe@example.com",
+  "birthDate": "1990-01-01"
+}
 
+## Filtered Responses
+
+This application demonstrates dynamic filtering of JSON responses using Jackson filters:
+
+- **`GET /filter-cred`**  
+  Returns student data excluding sensitive credentials.
+
+- **`GET /filter-id`**  
+  Returns student data excluding the student ID.
+
+These endpoints illustrate how the same object can be serialized differently depending on the use case or consumer requirements.
+
+## Internationalization (i18n)
+
+The endpoint **`GET /hello-world-i18n`** demonstrates internationalization support. It returns a localized greeting message based on the `Accept-Language` header in the request.
+
+Example:
+
+http
+GET /hello-world-i18n
+Accept-Language: fr
+
+
+Response:
+
+json
+"Bonjour le monde"
+
+
+Supports multiple languages, allowing the application to serve a global user base.
+
+## Error Handling
+- Returns `404 Not Found` if a user with the specified ID does not exist.
+- Returns `400 Bad Request` for invalid input data.
+
+## Future Improvements
+- Add unit and integration tests
+- Implement authentication and authorization
+- Enhance validation rules
+- Add pagination for user list endpoint
 
