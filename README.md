@@ -4,7 +4,7 @@
 This project demonstrates the implementation of RESTful web services using Spring Boot. It provides a simple API to perform CRUD (Create, Read, Update, Delete) operations on user data. The goal is to showcase the design and development of scalable and maintainable REST APIs.
 
 ## Features
-- Create, retrieve, update, and delete user records
+- Create, retrieve, update, and delete user/user post records
 - RESTful endpoints following best practices
 - Exception handling for invalid requests
 - Basic validation of input data
@@ -39,7 +39,7 @@ This project demonstrates the implementation of RESTful web services using Sprin
    
    mvn spring-boot:run
    
-5. The application will start on `http://localhost:8080`
+5. The application will start on `http://localhost:8081`
 
 ## API Endpoints
 | Method | Endpoint           | Description                  |
