@@ -106,9 +106,48 @@ Supports multiple languages, allowing the application to serve a global user bas
 - Returns `404 Not Found` if a user with the specified ID does not exist.
 - Returns `400 Bad Request` for invalid input data.
 
-## Future Improvements
-- Add unit and integration tests
-- Implement authentication and authorization
-- Enhance validation rules
-- Add pagination for user list endpoint
+Monitoring Setup with Prometheus and Grafana
+
+This project includes built-in support for monitoring Spring Boot metrics (including HikariCP) using Prometheus and Grafana.
+
+Prerequisites
+Docker & Docker Compose installed
+
+Run Prometheus and Grafana
+Start the monitoring stack:
+docker-compose up -d
+
+Configure Grafana
+Visit http://localhost:3000
+
+Log in with:
+
+Username: admin
+
+Password: admin
+
+Add a new Data Source:
+
+Type: Prometheus
+
+URL: http://prometheus:9090
+
+Click Save & Test
+
+(Optional) Import a prebuilt dashboard:
+
+Go to Dashboards → Import
+
+Use Dashboard ID: 4701
+
+Choose your Prometheus data source
+
+Click Import
+
+Category	Example Metrics
+HikariCP	hikaricp_connections_active, hikaricp_connections_max
+JVM	jvm_memory_used_bytes, jvm_threads_live
+HTTP	http_server_requests_seconds_count, http_server_requests_active
+DB	jdbc_connections_active, jdbc_connections_usage_seconds
+
 
